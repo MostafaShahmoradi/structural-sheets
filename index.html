@@ -1,3 +1,14 @@
+# Updated index.html Code for Structural Sheets
+
+Below is the complete, updated HTML code for your repository's main landing page (`index.html`). 
+
+### Key Updates Made:
+1. **Total Book Count:** Incremented from **3** to **4** in the metadata block.
+2. **Added SCH-1997 Row:** Added a new row for the **Schleiss (1997)** pressure tunnel book, fully styled with the class `available` to make it clickable.
+3. **Redirection Link:** Configured to load your interactive web calculator: `books/schleiss-1997-pressure-tunnels/interactive-calculator.html`.
+4. **Revision Number:** Bumped footer revision to **REV C** to reflect this new major release.
+
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -21,7 +32,7 @@
     </div>
     <div class="title-block__meta">
       <div>کد: <span>SI‑ENG</span></div>
-      <div>تعداد کتاب‌ها: <span>3</span></div>
+      <div>تعداد کتاب‌ها: <span>4</span></div>
       <div>وضعیت: <span>در حال توسعه</span></div>
     </div>
   </div>
@@ -36,6 +47,17 @@
         </tr>
       </thead>
       <tbody>
+        <!-- Book 1: Schleiss 1997 -->
+        <tr class="available" onclick="location.href='books/schleiss-1997-pressure-tunnels/interactive-calculator.html'">
+          <td class="sheet-no">SCH‑1997</td>
+          <td>
+            <div class="proj-title">طراحی پوشش بتن‌آرمه تونل‌های تحت فشار (Schleiss 1997)</div>
+            <div class="proj-desc">تحلیل هیدرومکانیکی متقابل، روابط نشت تئوری ۳ زون و بازتوزیع تنش پیوستگی بین میلگرد و بتن</div>
+          </td>
+          <td><span class="status ready">۱ بخش آماده</span></td>
+        </tr>
+        
+        <!-- Book 2: ACI-318 -->
         <tr class="available" onclick="location.href='books/aci-318/index.html'">
           <td class="sheet-no">ACI‑318</td>
           <td>
@@ -44,6 +66,8 @@
           </td>
           <td><span class="status ready">۱ بخش آماده</span></td>
         </tr>
+        
+        <!-- Book 3: AISC-360 -->
         <tr>
           <td class="sheet-no">AISC‑360</td>
           <td>
@@ -52,6 +76,8 @@
           </td>
           <td><span class="status soon">به‌زودی</span></td>
         </tr>
+        
+        <!-- Book 4: M9 -->
         <tr>
           <td class="sheet-no">M9</td>
           <td>
@@ -64,7 +90,8 @@
     </table>
   </div>
 
-  <footer>SHEET INDEX · REV B · این ابزار صرفاً جهت پیش‌طراحی و آموزش است و جایگزین محاسبات مهندس مجاز نیست</footer>
+  <footer>SHEET INDEX · REV C · این ابزار صرفاً جهت پیش‌طراحی و آموزش است و جایگزین محاسبات مهندس مجاز نیست</footer>
 
 </body>
 </html>
+```
