@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S-101 · طراحی خمشی تیر بتنی | Structural Sheets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/style.css">
+</head>
+<body class="blueprint-bg">
+
+  <a class="back-link" href="../index.html">← بازگشت به فهرست بخش‌های کتاب ACI 318</a>
+
+  <div class="title-block">
+    <div class="title-block__main">
+      <p class="title-block__eyebrow">S-101 · Reinforced Concrete Beam</p>
+      <h1 class="title-block__title">طراحی خمشی تیر بتنی</h1>
+      <p style="color:var(--paper-dim); max-width:60ch; margin-top:10px;">
+        مقطع مستطیلی، تک‌آرمه (Singly Reinforced) — تعیین سطح آرماتور کششی مورد نیاز بر اساس روش مقاومت نهایی ACI 318.
+      </p>
+    </div>
+    <div class="title-block__meta">
+      <div>آیین‌نامه: <span>ACI 318‑19</span></div>
+      <div>واحدها: <span>SI (mm, MPa, kN·m)</span></div>
+      <div>روش: <span>Strength Design</span></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="calc-grid">
+
+      <!-- INPUT PANEL -->
+      <div class="panel">
+        <p class="panel__head">پارامترهای ورودی</p>
+
+        <div class="field">
+          <label>عرض مقطع b <span class="unit">mm</span></label>
+          <input type="number" id="b" value="300" min="1">
+        </div>
+        <div class="field">
+          <label>ارتفاع مؤثر d <span class="unit">mm</span></label>
+          <input type="number" id="d" value="450" min="1">
+        </div>
+        <div class="field">
+          <label>ارتفاع کل مقطع h <span class="unit">mm</span></label>
+          <input type="number" id="h" value="500" min="1">
+        </div>
+        <div class="field">
+          <label>مقاومت فشاری بتن f'c <span class="unit">MPa</span></label>
+          <input type="number" id="fc" value="28" min="1" step="0.5">
+        </div>
+        <div class="field">
+          <label>تنش تسلیم آرماتور fy <span class="unit">MPa</span></label>
+          <input type="number" id="fy" value="420" min="1" step="10">
+        </div>
+        <div class="field">
+          <label>لنگر خمشی نهایی Mu <span class="unit">kN·m</span></label>
+          <input type="number" id="mu" value="180" min="0" step="1">
+        </div>
+
+        <button class="btn" onclick="calculate()">محاسبه ظرفیت خمشی</button>
+
+        <p class="hint">
+          فرمول پایه: A<sub>s</sub> از معادله تعادل گشتاور به‌دست می‌آید و سپس با تکرار، φ متناظر با کرنش کششی واقعی کنترل می‌شود (φ بین ۰.۶۵ تا ۰.۹).
+        </p>
+      </div>
+
+      <!-- OUTPUT PANEL -->
+      <div class="panel">
+        <p class="panel__head">نتایج محاسبات</p>
+        <div id="results">
+          <p style="color:var(--paper-dim); font-size:.88rem;">پارامترها را وارد کرده و روی «محاسبه» بزنید.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>SHEET S-101 · REV A · این ابزار صرفاً جهت پیش‌طراحی و آموزش است و جایگزین محاسبات و مهر مهندس مجاز نیست</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

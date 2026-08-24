@@ -1,0 +1,224 @@
+/* ==========================================================================
+   Design tokens — "Structural Sheet" system
+   ========================================================================== */
+:root{
+  --ink: #0B1A2B;          /* blueprint navy — primary background */
+  --ink-2: #10233A;        /* raised panel navy */
+  --line: #2A4A66;         /* blueprint linework */
+  --line-soft: rgba(127,201,255,0.14);
+  --paper: #EDF2F4;        /* light content / sheet paper */
+  --paper-dim: #C9D3D8;
+  --cyan: #6FD3F7;         /* blueprint highlight */
+  --amber: #F4A100;        /* action / stamp accent */
+  --pass: #3FA34D;
+  --fail: #D64545;
+  --ink-text: #0B1A2B;
+  --font-display: 'Archivo Expanded', 'Vazirmatn', sans-serif;
+  --font-body: 'Vazirmatn', 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Space Mono', monospace;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--font-body);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Blueprint grid background */
+.blueprint-bg{
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: -1px -1px;
+}
+
+a{color:inherit;}
+
+/* ---- Title block (signature element) ---- */
+.title-block{
+  border:1px solid var(--line);
+  border-radius:2px;
+  margin:20px;
+  display:grid;
+  grid-template-columns: 1fr auto;
+  overflow:hidden;
+}
+.title-block__main{
+  padding:22px 26px;
+  border-inline-end:1px solid var(--line);
+}
+.title-block__eyebrow{
+  font-family:var(--font-mono);
+  font-size:.72rem;
+  letter-spacing:.14em;
+  color:var(--cyan);
+  text-transform:uppercase;
+  margin:0 0 8px;
+}
+.title-block__title{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(1.6rem, 3vw, 2.4rem);
+  margin:0;
+  color:var(--paper);
+}
+.title-block__meta{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:22px 26px;
+  font-family:var(--font-mono);
+  font-size:.78rem;
+  color:var(--paper-dim);
+  min-width:180px;
+  gap:6px;
+}
+.title-block__meta div span{color:var(--cyan); direction:ltr; unicode-bidi:isolate;}
+
+/* ---- Layout shells ---- */
+.wrap{max-width:1040px; margin:0 auto; padding:0 20px 80px;}
+.sheet-index{width:100%; border-collapse:collapse; margin-top:10px;}
+.sheet-index th{
+  font-family:var(--font-mono);
+  font-size:.72rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--cyan);
+  text-align:start;
+  padding:10px 14px;
+  border-bottom:1px solid var(--line);
+}
+.sheet-index td{
+  padding:16px 14px;
+  border-bottom:1px solid var(--line-soft);
+  vertical-align:top;
+}
+.sheet-index tr.available{cursor:pointer;}
+.sheet-index tr.available:hover td{background:rgba(111,211,247,.05);}
+.sheet-no{
+  font-family:var(--font-mono);
+  color:var(--cyan);
+  font-size:.95rem;
+  white-space:nowrap;
+  direction:ltr;
+}
+.proj-title{font-family:var(--font-display); font-weight:600; font-size:1.05rem; color:var(--paper);}
+.proj-desc{color:var(--paper-dim); font-size:.88rem; margin-top:4px;}
+.status{
+  font-family:var(--font-mono);
+  font-size:.7rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:4px 10px;
+  border-radius:100px;
+  white-space:nowrap;
+  display:inline-block;
+}
+.status.ready{background:rgba(63,163,77,.15); color:var(--pass); border:1px solid rgba(63,163,77,.4);}
+.status.soon{background:rgba(244,161,0,.12); color:var(--amber); border:1px solid rgba(244,161,0,.35);}
+
+/* ---- Buttons / inputs ---- */
+.btn{
+  font-family:var(--font-mono);
+  font-size:.85rem;
+  letter-spacing:.04em;
+  background:var(--amber);
+  color:#1A1200;
+  border:none;
+  padding:12px 22px;
+  border-radius:2px;
+  cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn:hover{transform:translateY(-1px); box-shadow:0 6px 18px rgba(244,161,0,.25);}
+.btn:focus-visible, a:focus-visible, input:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
+
+/* ---- Calc sheet layout ---- */
+.calc-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:24px;}
+@media (max-width:860px){.calc-grid{grid-template-columns:1fr;}}
+.panel{
+  background:var(--ink-2);
+  border:1px solid var(--line);
+  border-radius:2px;
+  padding:22px 24px;
+}
+.panel__head{
+  font-family:var(--font-mono);
+  font-size:.72rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--cyan);
+  margin:0 0 16px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--line);
+}
+.field{margin-bottom:16px;}
+.field label{
+  display:flex; justify-content:space-between;
+  font-size:.86rem; color:var(--paper-dim); margin-bottom:6px;
+}
+.field label .unit{font-family:var(--font-mono); color:var(--cyan); font-size:.76rem; direction:ltr;}
+.field input{
+  width:100%;
+  background:var(--ink);
+  border:1px solid var(--line);
+  color:var(--paper);
+  font-family:var(--font-mono);
+  font-size:1rem;
+  padding:10px 12px;
+  border-radius:2px;
+  direction:ltr;
+  text-align:left;
+}
+.field input:focus{border-color:var(--cyan);}
+.hint{font-size:.78rem; color:var(--paper-dim); margin-top:20px; line-height:1.6;}
+
+/* ---- Results ---- */
+.result-row{
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding:10px 0; border-bottom:1px solid var(--line-soft);
+  font-size:.92rem;
+}
+.result-row:last-child{border-bottom:none;}
+.result-row .val{font-family:var(--font-mono); color:var(--cyan); direction:ltr;}
+.result-row.highlight .val{color:var(--amber); font-size:1.15rem; font-weight:600;}
+
+.stamp{
+  margin-top:22px; padding:18px; text-align:center;
+  border:3px solid var(--pass);
+  border-radius:6px;
+  color:var(--pass);
+  font-family:var(--font-mono);
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  transform:rotate(-2deg);
+  font-size:1.3rem;
+}
+.stamp.fail{border-color:var(--fail); color:var(--fail);}
+.stamp small{display:block; font-weight:400; letter-spacing:.04em; margin-top:6px; font-size:.7rem; text-transform:none;}
+
+.note-box{
+  margin-top:20px; padding:14px 16px;
+  background:rgba(244,161,0,.08);
+  border-inline-start:3px solid var(--amber);
+  font-size:.82rem; color:var(--paper-dim);
+  border-radius:2px;
+}
+
+footer{
+  text-align:center; color:var(--paper-dim);
+  font-family:var(--font-mono); font-size:.75rem;
+  padding:40px 20px; opacity:.7;
+}
+.back-link{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--font-mono); font-size:.8rem;
+  color:var(--cyan); text-decoration:none; margin:20px;
+}
