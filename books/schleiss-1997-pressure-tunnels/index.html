@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCH-1997 | طراحی تونل‌های تحت فشار</title>
+<meta name="description" content="فهرست ابزارها، محاسبات و مستندات هیدرومکانیکی تونل‌های تحت فشار بر اساس متدولوژی اشلایس">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Import Tailwind CSS for beautiful modern layout while keeping style.css compatible -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+    body {
+        font-family: 'Vazirmatn', sans-serif;
+    }
+    .code-font {
+        font-family: 'IBM Plex Mono', monospace;
+    }
+</style>
+</head>
+<body class="bg-[#111625] text-slate-100 min-h-screen">
+
+  <!-- Header Section -->
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="border-b border-blue-500/30 pb-6 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <p class="text-blue-400 text-xs font-bold tracking-widest uppercase mb-1">BOOK ID: SCH-1997 · CLASSIC HYDROPOWER PAPER</p>
+        <h1 class="text-3xl font-black text-white">طراحی پوشش بتن‌آرمه تونل‌ها و شفت‌های تحت فشار</h1>
+        <p class="text-slate-400 text-sm mt-1">توسعه یافته بر اساس روش پروفسور آنتون اشلایس (Schleiss, 1997)</p>
+      </div>
+      <a href="../../index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-4 py-2 rounded-lg border border-slate-700 transition flex items-center gap-2">
+        ← بازگشت به دفتر محاسبات
+      </a>
+    </div>
+
+    <!-- Quick Navigation Dashboard Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      
+      <!-- Card 1: Web Calculator -->
+      <div class="bg-gradient-to-br from-blue-900/40 to-slate-900 border border-blue-500/30 rounded-2xl p-6 shadow-lg hover:border-blue-500/60 transition flex flex-col justify-between">
+        <div>
+          <div class="bg-blue-600/20 text-blue-400 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-xl">
+            💻
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">ماشین‌حساب آنلاین تعاملی</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-6">
+            ابزار تحت وب آنلاین دوزبانه (فارسی/انگلیسی) برای تخمین زنده عرض ترک‌ها، میزان نشت آب و کنترل تنش میلگردها بر اساس دکمه‌های لغزنده ورودی.
+          </p>
+        </div>
+        <a href="interactive-calculator.html" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-center text-xs font-bold py-2.5 px-4 rounded-xl transition shadow-md">
+          اجرای محاسبات زنده وب
+        </a>
+      </div>
+
+      <!-- Card 2: Documentation (README_FA / README_EN) -->
+      <div class="bg-gradient-to-br from-teal-900/30 to-slate-900 border border-teal-500/20 rounded-2xl p-6 shadow-lg hover:border-teal-500/40 transition flex flex-col justify-between">
+        <div>
+          <div class="bg-teal-600/20 text-teal-400 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-xl">
+            📚
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">مستندات و کتابچه طراحی</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-6">
+            کتاب جامع دوزبانه حاوی مبانی تئوری مدل ۳ ناحیه‌ای، فیزیک ترک‌خوردگی بتن و تشریح ریاضی گام‌های آیین‌نامه‌ای اشلایس.
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <a href="README_FA.md" class="flex-1 bg-teal-600/20 hover:bg-teal-600/40 text-teal-300 text-center text-xs font-bold py-2 px-3 rounded-xl transition border border-teal-500/30">
+            نسخه فارسی
+          </a>
+          <a href="README.md" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-center text-xs font-bold py-2 px-3 rounded-xl transition border border-slate-700">
+            English
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 3: Offline Script -->
+      <div class="bg-gradient-to-br from-amber-900/30 to-slate-900 border border-amber-500/20 rounded-2xl p-6 shadow-lg hover:border-amber-500/40 transition flex flex-col justify-between">
+        <div>
+          <div class="bg-amber-600/20 text-amber-400 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-xl">
+            🐍
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">موتور پایتون آفلاین</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-6">
+            اسکریپت شیءگرا و جامع محاسباتی به همراه توابع بررسی پایداری هیدرولیکی برای استفاده‌های تخصصی کلاسی و توسعه دفترچه محاسبات.
+          </p>
+        </div>
+        <a href="#python-guide" class="w-full bg-amber-600/20 hover:bg-amber-600/40 text-amber-300 text-center text-xs font-bold py-2.5 px-4 rounded-xl transition border border-amber-500/30">
+          مشاهده راهنمای پایتون
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Inner Contents Sections -->
+    <div class="space-y-12">
+      
+      <!-- Section 1: Book README Core Theory -->
+      <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-8 shadow-sm">
+        <h2 class="text-xl font-black text-white border-b border-slate-800 pb-4 mb-6 flex items-center gap-2">
+          📌 خلاصه مبانی تئوری و مدل هیدرومکانیکی اشلایس (README.md)
+        </h2>
+        <div class="prose prose-invert max-w-none text-slate-300 text-sm leading-relaxed space-y-4">
+          <p>
+            طراحی پوشش‌های بتن‌آرمه برای تونل‌ها و شفت‌های انتقال آب تحت فشار، تحت تاثیر اندرکنش شدید سازه‌ای و ژئوتکنیکی قرار دارد. پروفسور اشلایس در مدل مشهور خود، کل محیط را به **سه زون استاتیکی-هیدرولیکی** تقسیم می‌کند:
+          </p>
+          <ul class="list-disc list-inside space-y-2 text-slate-400 mr-4">
+            <li><strong>پوشش بتنی ترک‌خورده:</strong> که در آن بازشدگی ترک‌ها تعیین‌کننده دبی نشتی نهایی است.</li>
+            <li><strong>توده سنگ مجاور تحت تاثیر جریان نشت:</strong> که فشار آب روی دیواره‌ها و تنش آن را تغییر می‌دهد.</li>
+            <li><strong>توده سنگ بکر دوردست:</strong> که بدون تغییرشکل هیدرولیکی، تکیه‌گاه نهایی کل شفت است.</li>
+          </ul>
+          <p>
+            توزیع تنش کششی در میلگردها و بتن بین دو ترک به صورت **سهموی** محاسبه می‌شود. به علت پدیده چسبندگی (تنش پیوند)، تنش بتن در وسط دو ترک بیشینه شده و در صورت تجاوز از مقاومت کششی، سری‌های جدید ترک شکل می‌گیرند.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center">
+              <span class="text-xs text-slate-500 block mb-2">توزیع تنش بین دو ترک متوالی</span>
+              <img src="assets/stress_distribution_between_cracks.png" alt="Stress Distribution" class="max-h-48 mx-auto rounded-lg">
+            </div>
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center">
+              <span class="text-xs text-slate-500 block mb-2">اثر آرایش آرماتوربندی بر عرض ترک</span>
+              <img src="assets/crack_width_vs_pressure.png" alt="Crack Width" class="max-h-48 mx-auto rounded-lg">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Python Script Runner Guide -->
+      <div id="python-guide" class="bg-slate-900/80 border border-slate-800 rounded-2xl p-8 shadow-sm">
+        <h2 class="text-xl font-black text-white border-b border-slate-800 pb-4 mb-6 flex items-center gap-2">
+          🐍 راهنمای استفاده و اجرای اسکریپت آفلاین پایتون (`pressure_tunnel_calc.py`)
+        </h2>
+        <div class="space-y-6 text-sm text-slate-300 leading-relaxed">
+          <p>
+            اسکریپت آفلاین پایتون به صورت شیءگرا طراحی شده و الگوریتم تکرارشونده ۸ مرحله‌ای اشلایس را برای ارزیابی پایداری و نفوذپذیری سازه‌ای حل می‌کند.
+          </p>
+
+          <div>
+            <h4 class="font-bold text-amber-400 mb-2">📋 نیازمندی‌های سیستم برای اجرا:</h4>
+            <ul class="list-disc list-inside space-y-1 text-slate-400 mr-4">
+              <li>نصب بودن پایتون نسخه 3.8 یا بالاتر</li>
+              <li>نصب بودن کتابخانه ریاضی علمی <code class="code-font text-xs bg-slate-950 px-1.5 py-0.5 rounded text-amber-300">numpy</code> (در صورت عدم نصب، دستور زیر را در خط فرمان وارد کنید):</li>
+            </ul>
+            <pre class="bg-slate-950 text-emerald-400 p-4 rounded-xl code-font text-xs border border-slate-800 mt-2 text-left" dir="ltr">pip install numpy</pre>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-amber-400 mb-2">🚀 شیوه فراخوانی و استفاده در کدهای شخصی:</h4>
+            <p class="mb-2">
+              با ایمپورت کردن کلاس طراحی، می‌توانید پارامترهای هندسی متغیر پروژه خود را وارد کرده و خروجی بگیرید:
+            </p>
+            <pre class="bg-slate-950 text-blue-400 p-4 rounded-xl code-font text-xs border border-slate-800 overflow-x-auto text-left" dir="ltr">from scripts.pressure_tunnel_calc import PressureTunnelDesign
+
+# ۱. راه‌اندازی کلاس با پارامترهای ژئوتکنیکی و شعاع تونل
+calc = PressureTunnelDesign(
+    r_i=1.8,   # شعاع داخلی پوشش به متر
+    r_s=1.9,   # تراز قرارگیری میلگردها
+    r_o=2.1,   # شعاع خارجی پوشش بتنی
+    E_r=4.0    # مدول سنگ به گیگاپاسکال
+)
+
+# ۲. اجرای فرآیند محاسبات کوپله برای فشار آب مشخص، گام آرماتوربندی و قطر میلگرد
+results = calc.calculate_state(
+    p_i_bar=30,          # فشار آب داخلی (بار)
+    spacing_cm=16,       # فاصله میلگردها (سانتی‌متر)
+    bar_diameter_mm=18   # قطر میلگردهای انتخابی (میلی‌متر)
+)
+
+print(results)
+            </pre>
+          </div>
+
+          <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800">
+            <h4 class="font-bold text-slate-200 text-xs mb-2">💡 درس طلایی مهندسی در خروجی این فایل:</h4>
+            <p class="text-xs text-slate-400">
+              اگر خروجی محاسبات را برای دو فاصله میلگرد ۳۴ سانتی‌متر و ۱۶ سانتی‌متر مقایسه کنید، مشاهده می‌کنید که علیرغم استفاده از درصد فولاد یکسان، میلگردهای نزدیک‌تر عرض ترک را تا ۷۰ درصد کاهش داده و از مرز تخریب سازه‌ای دور نگه می‌دارند.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="bg-slate-950 text-slate-500 py-6 text-center text-xs mt-12 border-t border-slate-900">
+    <p>دفتر محاسبات سازه | راهنمای پکیج هیدرومکانیکی SCH-1997</p>
+    <p class="mt-1">Developed by Mostafa Shahmoradi &copy; 2026 | structural-sheets</p>
+  </footer>
+
+</body>
+</html>
