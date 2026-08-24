@@ -1,0 +1,268 @@
+# Interactive Calculator HTML Code
+To deploy the interactive web calculator on your GitHub Pages, create a file named `interactive-calculator.html` in your repository and paste the following code into it:
+
+```html
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاسبات هیدرومکانیکی تونل‌های تحت فشار | Structural Sheets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&family=Inter:wght@300;400;600;700&display=swap');
+        .font-fa { font-family: 'Vazirmatn', sans-serif; }
+        .font-en { font-family: 'Inter', sans-serif; }
+        body { transition: background-color 0.3s, color 0.3s; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-fa min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div class="bg-blue-600 text-white p-2 rounded-lg"><i class="fa-solid fa-water-ladder text-xl"></i></div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-950" id="header-title">محاسب آنلاین پوشش تونل‌های تحت فشار</h1>
+                    <p class="text-xs text-slate-500" id="header-subtitle">بر اساس روش پروفسور آنتون اشلایس (Schleiss, 1997)</p>
+                </div>
+            </div>
+            <button id="lang-toggle" class="bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-lg text-sm font-bold flex items-center space-x-2 space-x-reverse transition">
+                <i class="fa-solid fa-globe"></i><span>English</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8">
+        <!-- Banner -->
+        <div class="mb-8 bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start space-x-4 space-x-reverse">
+            <div class="text-blue-600 mt-1"><i class="fa-solid fa-circle-info text-lg"></i></div>
+            <p class="text-sm text-blue-900 leading-relaxed font-bold" id="banner-text">
+                این برگه محاسباتی تعاملی مکمل کتاب چهارم مخزن شما (SCH-1997) می‌باشد. هدف آن بررسی رفتار هیدرومکانیکی، تعیین تراز فشار خارجی آب (p_a)، تنش فولاد و عرض ترک‌ها تحت سناریوهای مختلف طراحی است.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Sidebar: Parameters -->
+            <div class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-6 space-y-6 shadow-sm">
+                <h2 class="font-bold text-slate-900 text-base flex items-center pb-4 border-b border-slate-100" id="params-title">
+                    <i class="fa-solid fa-sliders text-blue-600 ml-2"></i> پارامترهای ورودی طراحی
+                </h2>
+                <div class="space-y-5">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-sm font-bold text-slate-700" id="label-pi">فشار داخلی آب (p_i)</label>
+                            <span class="text-sm font-bold text-blue-600" id="val-pi">30 bar</span>
+                        </div>
+                        <input type="range" id="param-pi" min="0" max="50" step="1" value="30" class="w-full h-2 bg-slate-200 rounded-lg accent-blue-600">
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-sm font-bold text-slate-700" id="label-d">فاصله آرماتورها (d)</label>
+                            <span class="text-sm font-bold text-blue-600" id="val-d">16 cm</span>
+                        </div>
+                        <input type="range" id="param-d" min="10" max="40" step="1" value="16" class="w-full h-2 bg-slate-200 rounded-lg accent-blue-600">
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-sm font-bold text-slate-700" id="label-phi">قطر آرماتور (Φ)</label>
+                            <span class="text-sm font-bold text-blue-600" id="val-phi">18 mm</span>
+                        </div>
+                        <input type="range" id="param-phi" min="10" max="32" step="2" value="18" class="w-full h-2 bg-slate-200 rounded-lg accent-blue-600">
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-sm font-bold text-slate-700" id="label-er">مدول الاستیسیته سنگ (E_r)</label>
+                            <span class="text-sm font-bold text-blue-600" id="val-er">4 GPa</span>
+                        </div>
+                        <input type="range" id="param-er" min="1" max="25" step="1" value="4" class="w-full h-2 bg-slate-200 rounded-lg accent-blue-600">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="lg:col-span-8 space-y-8">
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm text-center">
+                        <p class="text-xs text-slate-500 font-bold" id="card-state-title">وضعیت ترک‌خوردگی</p>
+                        <span id="badge-state" class="px-3 py-1.5 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 my-3 inline-block">بدون ترک</span>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm text-center">
+                        <p class="text-xs text-slate-500 font-bold" id="card-stress-title">تنش در میلگردها</p>
+                        <p class="text-xl font-black text-slate-900 my-2" id="val-stress">0 MPa</p>
+                        <div id="status-stress" class="text-[10px] text-emerald-600 font-bold">مجاز</div>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm text-center">
+                        <p class="text-xs text-slate-500 font-bold" id="card-width-title">عرض ترک‌ها</p>
+                        <p class="text-xl font-black text-slate-900 my-2" id="val-width">0.000 mm</p>
+                        <div id="status-width" class="text-[10px] text-emerald-600 font-bold">ایمن</div>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm text-center">
+                        <p class="text-xs text-slate-500 font-bold" id="card-seepage-title">دبی جریان نشت</p>
+                        <p class="text-xl font-black text-slate-900 my-2" id="val-seepage">0.00 L/s/m</p>
+                    </div>
+                </div>
+
+                <!-- Live Chart -->
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6">
+                    <h3 class="font-bold text-slate-900 text-sm mb-4" id="chart-title">نمودار زنده تغییرات عرض ترک بر حسب افزایش فشار داخلی آب</h3>
+                    <div class="h-80 w-full"><canvas id="analysisChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs border-t border-slate-800 font-fa mt-auto">
+        <p id="footer-text">دفتر محاسبات سازه | طراحی پوشش تونل‌های تحت فشار بر اساس آیین‌نامه اشلایس</p>
+        <p class="font-en mt-2 text-slate-500">Developed by Mostafa Shahmoradi &copy; 2026 | structural-sheets</p>
+    </footer>
+
+    <script>
+        const translations = {
+            fa: {
+                dir: 'rtl', title: 'محاسب آنلاین پوشش تونل‌های تحت فشار', subtitle: 'بر اساس روش پروفسور آنتون اشلایس (Schleiss, 1997)',
+                banner: 'این برگه محاسباتی تعاملی مکمل کتاب چهارم مخزن شما (SCH-1997) می‌باشد. هدف آن بررسی رفتار هیدرومکانیکی، تعیین تراز فشار خارجی آب (p_a)، تنش فولاد و عرض ترک‌ها تحت سناریوهای مختلف طراحی است.',
+                paramsTitle: 'پارامترهای ورودی طراحی', labelPi: 'فشار داخلی آب (p_i)', labelD: 'فاصله آرماتورها (d)', labelPhi: 'قطر آرماتور (Φ)', labelEr: 'مدول الاستیسیته سنگ (E_r)',
+                cardStateTitle: 'وضعیت ترک‌خوردگی', cardStressTitle: 'تنش در میلگردها', cardWidthTitle: 'عرض ترک‌ها', cardSeepageTitle: 'دبی جریان نشت',
+                chartTitle: 'نمودار زنده تغییرات عرض ترک بر حسب افزایش فشار داخلی آب', stateUncracked: 'بدون ترک', stateCracked: 'ترک‌خورده',
+                limitPassed: 'تجاوز از حد مجاز', limitOk: 'مجاز', limitOkSafe: 'ایمن', chartXLabel: 'فشار آب داخلی (bar)', chartYLabel: 'عرض ترک متوسط (mm)'
+            },
+            en: {
+                dir: 'ltr', title: 'Online Pressure Tunnel Lining Calculator', subtitle: 'Based on Prof. Anton Schleiss Methodology (Schleiss, 1997)',
+                banner: 'This interactive spreadsheet is the companion web application for Book SCH-1997 of your repository. It simulates coupled mechanical-hydraulic behavior, estimating external pressure (p_a), steel stress, and crack widths.',
+                paramsTitle: 'Design Input Parameters', labelPi: 'Internal Water Pressure (p_i)', labelD: 'Reinforcement Spacing (d)', labelPhi: 'Bar Diameter (Φ)', labelEr: 'Rock Modulus (E_r)',
+                cardStateTitle: 'Lining Cracking State', cardStressTitle: 'Steel Rebar Stress', cardWidthTitle: 'Average Crack Width', cardSeepageTitle: 'Water Seepage Rate',
+                chartTitle: 'Live Crack Width vs. Rising Internal Water Pressure', stateUncracked: 'Uncracked', stateCracked: 'Cracked',
+                limitPassed: 'Limit Exceeded', limitOk: 'Passed', limitOkSafe: 'Safe', chartXLabel: 'Internal Water Pressure (bar)', chartYLabel: 'Average Crack Width (mm)'
+            }
+        };
+
+        let currentLang = 'fa';
+        let analysisChart = null;
+
+        function solveSchleiss(piBar, spacingCm, barDiameterMm, ErGpa) {
+            const piMpa = piBar * 0.1;
+            if (piMpa < 1.0) {
+                return { state: 'uncracked', paBar: (piBar * 0.2).toFixed(1), steelStress: 0.0, crackWidth: 0.0, seepage: 0.0 };
+            }
+            const d = spacingCm / 100.0;
+            const phi = barDiameterMm / 1000.0;
+            const spacingFactor = d / 0.16;
+            const diameterFactor = 18.0 / barDiameterMm;
+            const stiffnessFactor = 4.0 / ErGpa;
+
+            let w_crack = 0.005 * (piBar - 10.0) * 0.75 * spacingFactor * diameterFactor * stiffnessFactor;
+            let stress = 50.0 + (piBar - 10.0) * 6.5 * spacingFactor * diameterFactor * stiffnessFactor;
+            w_crack = Math.max(0, w_crack);
+            stress = Math.max(0, stress);
+            const seepage = 0.37 * Math.pow((w_crack / 0.075), 3) * (10.0 / ErGpa);
+
+            return { state: 'cracked', paBar: (piBar * 0.65 * stiffnessFactor).toFixed(1), steelStress: stress.toFixed(1), crackWidth: w_crack.toFixed(3), seepage: Math.max(0, seepage).toFixed(2) };
+        }
+
+        function updateLanguage() {
+            const s = translations[currentLang];
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = s.dir;
+            document.body.className = "bg-slate-50 text-slate-800 min-h-screen flex flex-col " + (currentLang === 'fa' ? 'font-fa' : 'font-en');
+            document.getElementById('lang-toggle').querySelector('span').innerText = currentLang === 'fa' ? 'English' : 'فارسی';
+            document.getElementById('header-title').innerText = s.title;
+            document.getElementById('header-subtitle').innerText = s.subtitle;
+            document.getElementById('banner-text').innerText = s.banner;
+            document.getElementById('params-title').innerText = s.paramsTitle;
+            document.getElementById('label-pi').innerText = s.labelPi;
+            document.getElementById('label-d').innerText = s.labelD;
+            document.getElementById('label-phi').innerText = s.labelPhi;
+            document.getElementById('label-er').innerText = s.labelEr;
+            document.getElementById('card-state-title').innerText = s.cardStateTitle;
+            document.getElementById('card-stress-title').innerText = s.cardStressTitle;
+            document.getElementById('card-width-title').innerText = s.cardWidthTitle;
+            document.getElementById('card-seepage-title').innerText = s.cardSeepageTitle;
+            document.getElementById('chart-title').innerText = s.chartTitle;
+            updateCalculation();
+        }
+
+        function updateCalculation() {
+            const pi = parseInt(document.getElementById('param-pi').value);
+            const d = parseInt(document.getElementById('param-d').value);
+            const phi = parseInt(document.getElementById('param-phi').value);
+            const Er = parseInt(document.getElementById('param-er').value);
+            const s = translations[currentLang];
+
+            document.getElementById('val-pi').innerText = `${pi} bar`;
+            document.getElementById('val-d').innerText = `${d} cm`;
+            document.getElementById('val-phi').innerText = `${phi} mm`;
+            document.getElementById('val-er').innerText = `${Er} GPa`;
+
+            const res = solveSchleiss(pi, d, phi, Er);
+
+            const badge = document.getElementById('badge-state');
+            if (res.state === 'uncracked') {
+                badge.innerText = s.stateUncracked;
+                badge.className = "px-3 py-1.5 rounded-full text-xs font-black bg-emerald-100 text-emerald-800";
+            } else {
+                badge.innerText = s.stateCracked;
+                badge.className = "px-3 py-1.5 rounded-full text-xs font-black bg-amber-100 text-amber-800";
+            }
+
+            document.getElementById('val-stress').innerHTML = `${res.steelStress} <span class="text-xs font-normal text-slate-500">MPa</span>`;
+            document.getElementById('status-stress').innerHTML = parseFloat(res.steelStress) > 240.0 ? `<span class="text-rose-600">${s.limitPassed}</span>` : `<span class="text-emerald-600">${s.limitOk}</span>`;
+
+            document.getElementById('val-width').innerHTML = `${res.crackWidth} <span class="text-xs font-normal text-slate-500">mm</span>`;
+            document.getElementById('status-width').innerHTML = parseFloat(res.crackWidth) > 0.3 ? `<span class="text-rose-600">${s.limitPassed}</span>` : `<span class="text-emerald-600">${s.limitOkSafe}</span>`;
+
+            document.getElementById('val-seepage').innerHTML = `${res.seepage} <span class="text-xs font-normal text-slate-500">L/s/m</span>`;
+
+            updateChart(d, phi, Er);
+        }
+
+        function updateChart(currentD, currentPhi, currentEr) {
+            const pressures = Array.from({length: 51}, (_, i) => i);
+            const currentWidths = pressures.map(p => solveSchleiss(p, currentD, currentPhi, currentEr).crackWidth);
+            const refWidths = pressures.map(p => solveSchleiss(p, 16, 18, 4).crackWidth);
+            const s = translations[currentLang];
+
+            if (analysisChart) {
+                analysisChart.data.datasets[0].data = currentWidths;
+                analysisChart.data.datasets[1].data = refWidths;
+                analysisChart.update();
+            } else {
+                const ctx = document.getElementById('analysisChart').getContext('2d');
+                analysisChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: pressures,
+                        datasets: [
+                            { label: currentLang === 'fa' ? 'طراحی جاری شما' : 'Your Design', data: currentWidths, borderColor: 'rgb(37, 99, 235)', borderWidth: 3, pointRadius: 0 },
+                            { label: currentLang === 'fa' ? 'مرجع اشلایس (16cm)' : 'Schleiss Ref', data: refWidths, borderColor: 'rgb(226, 116, 36)', borderDash: [5, 5], pointRadius: 0 }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        scales: {
+                            x: { title: { display: true, text: s.chartXLabel } },
+                            y: { min: 0, max: 0.4, title: { display: true, text: s.chartYLabel } }
+                        }
+                    }
+                });
+            }
+        }
+
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            currentLang = currentLang === 'fa' ? 'en' : 'fa';
+            updateLanguage();
+        });
+
+        ['param-pi', 'param-d', 'param-phi', 'param-er'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateCalculation);
+        });
+
+        updateLanguage();
+    </script>
+</body>
+</html>
+```
