@@ -2,6 +2,7 @@ import numpy as np
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 import matplotlib.pyplot as plt
+import os
 
 class PressureTunnelOptimizer:
     def __init__(self, r_i=1.8, r_s=1.9, r_o=2.1, E_c=20.0, E_s=200.0, E_r=4.0, k_r=1e-6, beta_z=1.0):
@@ -321,11 +322,25 @@ class PressureTunnelOptimizer:
         plt.close()
 
 if __name__ == "__main__":
+    # Check if we are running in the cloud sandbox environment or a local user PC
+    if os.path.exists("/workspace/scratch"):
+        excel_out = "/workspace/scratch/Schleiss_Pressure_Tunnel_Optimization_Report.xlsx"
+        plot_out = "/workspace/scratch/Schleiss_Tunnel_Optimization_Chart"
+    else:
+        excel_out = "Schleiss_Pressure_Tunnel_Optimization_Report.xlsx"
+        plot_out = "Schleiss_Tunnel_Optimization_Chart"
+
     opt = PressureTunnelOptimizer()
+    print("Running Schleiss (1997) Reinforcement Optimization Engine...")
     best, feasible, infeasible = opt.run_optimization(30)
+    
     print("Optimization Completed!")
-    print(f"Optimal Design: Diameter {best['bar_diameter_mm']} mm, Spacing {best['spacing_cm']} cm")
-    print(f"Steel Weight: {best['steel_weight_kg_m']} kg/m")
-    opt.export_optimization_to_excel("/workspace/scratch/Schleiss_Pressure_Tunnel_Optimization_Report.xlsx", 30)
-    opt.generate_optimization_charts("/workspace/scratch/Schleiss_Tunnel_Optimization_Chart", 30)
-    print("Files successfully generated in scratch!")
+    print(f"Optimal Design Selected: Diameter {best['bar_diameter_mm']} mm, Spacing {best['spacing_cm']} cm")
+    print(f"Minimum Steel Weight: {best['steel_weight_kg_m']} kg/m")
+    
+    opt.export_optimization_to_excel(excel_out, 30)
+    print(f"Optimization Excel report generated: {excel_out}")
+    
+    opt.generate_optimization_charts(plot_out, 30)
+    print(f"Pareto Frontier charts generated: {plot_out}.png")
+    print("Execution Completed Successfully!")
