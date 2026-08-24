@@ -196,220 +196,263 @@ print(results)
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>راهنمای محاسبات پوشش تونل‌های تحت فشار | Structural Sheets</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
-        .font-fa { font-family: 'Vazirmatn', sans-serif; }
-        .font-mono { font-family: 'IBM Plex Mono', monospace; }
-        .blueprint-bg {
-            background-color: #0b132b;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCH-1997 | طراحی تونل‌های تحت فشار</title>
+<meta name="description" content="فهرست ابزارها، محاسبات و مستندات هیدرومکانیکی تونل‌های تحت فشار بر اساس متدولوژی اشلایس">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Import Tailwind CSS for beautiful modern layout while keeping style.css compatible -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+    body {
+        font-family: 'Vazirmatn', sans-serif;
+    }
+    .code-font {
+        font-family: 'IBM Plex Mono', monospace;
+    }
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-fa min-h-screen flex flex-col">
+<body class="bg-[#111625] text-slate-100 min-h-screen">
 
-    <!-- Header -->
-    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3 space-x-reverse">
-                <a href="../../index.html" class="bg-slate-100 hover:bg-slate-200 text-slate-700 p-2 rounded-lg transition">
-                    <i class="fa-solid fa-arrow-right text-lg"></i>
-                </a>
-                <div>
-                    <h1 class="text-base md:text-lg font-black text-slate-950">کتاب چهارم: طراحی تونل‌های تحت فشار</h1>
-                    <p class="text-xs text-slate-500">راهنمای هیدرومکانیکی و بهینه‌سازی آرماتوربندی (Schleiss, 1997)</p>
-                </div>
-            </div>
-            <div class="hidden md:flex items-center space-x-2 space-x-reverse text-xs bg-slate-100 px-3 py-1.5 rounded-lg text-slate-600 font-bold">
-                <span>کد مرجع: SCH-1997</span>
-            </div>
+  <!-- Header Section -->
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="border-b border-blue-500/30 pb-6 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <p class="text-blue-400 text-xs font-bold tracking-widest uppercase mb-1">BOOK ID: SCH-1997 · CLASSIC HYDROPOWER PAPER</p>
+        <h1 class="text-3xl font-black text-white">طراحی پوشش بتن‌آرمه تونل‌ها و شفت‌های تحت فشار</h1>
+        <p class="text-slate-400 text-sm mt-1">توسعه یافته بر اساس روش پروفسور آنتون اشلایس (Schleiss, 1997)</p>
+      </div>
+      <a href="../../index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-4 py-2 rounded-lg border border-slate-700 transition flex items-center gap-2">
+        ← بازگشت به دفتر محاسبات
+      </a>
+    </div>
+
+    <!-- Quick Navigation Dashboard Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      
+      <!-- Card 1: Web Calculator -->
+      <div class="bg-gradient-to-br from-blue-900/40 to-slate-900 border border-blue-500/30 rounded-2xl p-6 shadow-lg hover:border-blue-500/60 transition flex flex-col justify-between">
+        <div>
+          <div class="bg-blue-600/20 text-blue-400 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-xl">
+            💻
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">ماشین‌حساب آنلاین تعاملی</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-6">
+            ابزار تحت وب آنلاین دوزبانه (فارسی/انگلیسی) برای تخمین زنده عرض ترک‌ها، میزان نشت آب و کنترل تنش میلگردها بر اساس دکمه‌های لغزنده ورودی.
+          </p>
         </div>
-    </header>
+        <a href="interactive-calculator.html" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-center text-xs font-bold py-2.5 px-4 rounded-xl transition shadow-md">
+          اجرای محاسبات زنده وب
+        </a>
+      </div>
 
-    <!-- Main Hero -->
-    <section class="blueprint-bg text-white py-12 px-4 shadow-inner relative overflow-hidden">
-        <div class="max-w-5xl mx-auto text-center relative z-10">
-            <span class="bg-blue-500/20 text-blue-300 border border-blue-500/30 px-3 py-1 rounded-full text-xs font-bold mb-4 inline-block">راهنمای دوزبانه جامع</span>
-            <h2 class="text-2xl md:text-4xl font-black mb-3 leading-tight">پرتال محاسبات هیدرومکانیکی پوشش بتن‌آرمه</h2>
-            <p class="text-sm md:text-base text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                این صفحه فرود به شما کمک می‌کند تا با مدل سه ناحیه‌ای هماهنگ بتن-سنگ پروفسور اشلایس آشنا شده، محاسبات آنلاین را زنده بررسی کرده و به کمک کدهای پایتون بهینه‌ترین آرایش آرماتور را استخراج کنید.
+      <!-- Card 2: Documentation (README_FA / README_EN) -->
+      <div class="bg-gradient-to-br from-teal-900/30 to-slate-900 border border-teal-500/20 rounded-2xl p-6 shadow-lg hover:border-teal-500/40 transition flex flex-col justify-between">
+        <div>
+          <div class="bg-teal-600/20 text-teal-400 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-xl">
+            📚
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">مستندات و کتابچه طراحی</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-6">
+            کتاب جامع دوزبانه حاوی مبانی تئوری مدل ۳ ناحیه‌ای، فیزیک ترک‌خوردگی بتن و تشریح ریاضی گام‌های آیین‌نامه‌ای اشلایس.
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <a href="README_FA.md" class="flex-1 bg-teal-600/20 hover:bg-teal-600/40 text-teal-300 text-center text-xs font-bold py-2 px-3 rounded-xl transition border border-teal-500/30">
+            نسخه فارسی
+          </a>
+          <a href="README.md" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-center text-xs font-bold py-2 px-3 rounded-xl transition border border-slate-700">
+            English
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 3: Offline Script -->
+      <div class="bg-gradient-to-br from-amber-900/30 to-slate-900 border border-amber-500/20 rounded-2xl p-6 shadow-lg hover:border-amber-500/40 transition flex flex-col justify-between">
+        <div>
+          <div class="bg-amber-600/20 text-amber-400 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-xl">
+            🐍
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">موتورهای محاسباتی پایتون</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-6">
+            شامل اسکریپت شبیه‌ساز کوپله هیدرومکانیکی و ماژول الگوریتم بهینه‌ساز هوشمند قطر و فاصله میلگردها برای صرفه‌جویی اقتصادی.
+          </p>
+        </div>
+        <a href="#python-guide" class="w-full bg-amber-600/20 hover:bg-amber-600/40 text-amber-300 text-center text-xs font-bold py-2.5 px-4 rounded-xl transition border border-amber-500/30">
+          مشاهده راهنمای پایتون
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Inner Contents Sections -->
+    <div class="space-y-12">
+      
+      <!-- Section 1: Book README Core Theory -->
+      <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-8 shadow-sm">
+        <h2 class="text-xl font-black text-white border-b border-slate-800 pb-4 mb-6 flex items-center gap-2">
+          📌 خلاصه مبانی تئوری و مدل هیدرومکانیکی اشلایس (README.md)
+        </h2>
+        <div class="prose prose-invert max-w-none text-slate-300 text-sm leading-relaxed space-y-4">
+          <p>
+            طراحی پوشش‌های بتن‌آرمه برای تونل‌ها و شفت‌های انتقال آب تحت فشار، تحت تاثیر اندرکنش شدید سازه‌ای و ژئوتکنیکی قرار دارد. پروفسور اشلایس در مدل مشهور خود، کل محیط را به **سه زون استاتیکی-هیدرولیکی** تقسیم می‌کند:
+          </p>
+          <ul class="list-disc list-inside space-y-2 text-slate-400 mr-4">
+            <li><strong>پوشش بتنی ترک‌خورده:</strong> که در آن بازشدگی ترک‌ها تعیین‌کننده دبی نشتی نهایی است.</li>
+            <li><strong>توده سنگ مجاور تحت تاثیر جریان نشت:</strong> که فشار آب روی دیواره‌ها و تنش آن را تغییر می‌دهد.</li>
+            <li><strong>توده سنگ بکر دوردست:</strong> که بدون تغییرشکل هیدرولیکی، تکیه‌گاه نهایی کل شفت است.</li>
+          </ul>
+          <p>
+            توزیع تنش کششی در میلگردها و بتن بین دو ترک به صورت **سهموی** محاسبه می‌شود. به علت پدیده چسبندگی (تنش پیوند)، تنش بتن در وسط دو ترک بیشینه شده و در صورت تجاوز از مقاومت کششی، سری‌های جدید ترک شکل می‌گیرند.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center">
+              <span class="text-xs text-slate-500 block mb-2">توزیع تنش بین دو ترک متوالی</span>
+              <img src="assets/stress_distribution_between_cracks.png" alt="Stress Distribution" class="max-h-48 mx-auto rounded-lg">
+            </div>
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center">
+              <span class="text-xs text-slate-500 block mb-2">اثر آرایش آرماتوربندی بر عرض ترک</span>
+              <img src="assets/crack_width_vs_pressure.png" alt="Crack Width" class="max-h-48 mx-auto rounded-lg">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Zero-to-Hero Python Script Runner Guide -->
+      <div id="python-guide" class="bg-slate-900/80 border border-slate-800 rounded-2xl p-8 shadow-sm">
+        <h2 class="text-xl font-black text-white border-b border-slate-800 pb-4 mb-6 flex items-center gap-2">
+          🐍 راهنمای قدم‌به‌قدم اجرای کدهای پایتون (مخصوص کاربران کاملاً مبتدی)
+        </h2>
+        
+        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+          اگر تا به حال اسم پایتون (Python) را نشنیده‌اید و اولین بار است که می‌خواهید کدهای برنامه‌نویسی را اجرا کنید، اصلاً نگران نباشید! پایتون یک زبان فوق‌العاده ساده است که مانند یک دستیار هوشمند، کارهای سخت ریاضی را برای شما انجام می‌دهد. راهنمای تصویری و بسیار ساده زیر را دنبال کنید تا در کمتر از ۵ دقیقه گزارش‌های اکسل و نمودارهای باکیفیت طراحی خود را دریافت کنید.
+        </p>
+
+        <div class="space-y-8">
+          
+          <!-- Step 1 -->
+          <div class="border-l-4 border-amber-500 pr-4">
+            <span class="bg-amber-500/10 text-amber-400 font-bold px-2.5 py-1 rounded text-xs">گام اول</span>
+            <h3 class="text-lg font-bold text-white mt-2 mb-1">دانلود و نصب پایتون (ساده‌ترین روش)</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-2">
+              ۱. وارد سایت رسمی <a href="https://www.python.org/downloads/" target="_blank" class="text-amber-400 underline hover:text-amber-300">دانلود پایتون</a> شوید و روی دکمه بزرگ زرد رنگ <strong class="text-white">Download Python</strong> کلیک کنید تا دانلود شود.
+              <br>
+              ۲. روی فایل دانلود شده کلیک کنید تا پنجره نصب باز شود.
             </p>
-        </div>
-    </section>
+            <div class="bg-amber-900/20 border border-amber-500/30 text-amber-300 p-4 rounded-xl text-xs flex items-start gap-3 my-2 leading-relaxed">
+              <span>⚠️</span>
+              <div>
+                <strong>نکته بسیار حیاتی برای شروع کار:</strong> 
+                در پایین اولین صفحه پنجره‌ی نصب پایتون، حتماً تیک گزینه <strong>Add Python to PATH</strong> (یا Add python.exe to PATH) را بزنید! 
+                اگر این تیک را نزنید، سیستم شما دستورات پایتون را نخواهد شناخت. پس از زدن تیک، روی دکمه <strong>Install Now</strong> کلیک کنید تا نصب تمام شود.
+              </div>
+            </div>
+          </div>
 
-    <!-- Main Content -->
-    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-10">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            
-            <!-- Left Side: Interactive Tools & Theory -->
-            <div class="lg:col-span-7 space-y-10">
-                
-                <!-- Card 1: Interactive Online Calculator -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative overflow-hidden">
-                    <div class="absolute top-0 left-0 bg-blue-600 text-white text-[10px] uppercase tracking-wider font-black px-4 py-1.5 rounded-br-xl">اجرای تحت وب</div>
-                    <div class="flex items-start space-x-4 space-x-reverse mt-2">
-                        <div class="bg-blue-50 text-blue-600 p-3.5 rounded-xl text-2xl"><i class="fa-solid fa-laptop-code"></i></div>
-                        <div>
-                            <h3 class="text-lg font-black text-slate-900 mb-1">ماشین‌حساب آنلاین تعاملی</h3>
-                            <p class="text-sm text-slate-500 leading-relaxed mb-4">
-                                بدون نیاز به نصب هیچ نرم‌افزاری، پارامترهای آرماتوربندی و مشخصات سنگ را تغییر دهید و فوراً توزیع زنده عرض ترک‌ها و دبی نشت آب را در قالب نمودارهای زیبا و واکنش‌گرا مشاهده کنید.
-                            </p>
-                            <a href="interactive-calculator.html" class="inline-flex items-center space-x-2 space-x-reverse bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md shadow-blue-500/10 transition">
-                                <span>ورود به ماشین‌حساب آنلاین</span> <i class="fa-solid fa-chevron-left text-xs"></i>
-                            </a>
-                        </div>
-                    </div>
+          <!-- Step 2 -->
+          <div class="border-l-4 border-blue-500 pr-4">
+            <span class="bg-blue-500/10 text-blue-400 font-bold px-2.5 py-1 rounded text-xs">گام دوم</span>
+            <h3 class="text-lg font-bold text-white mt-2 mb-1">باز کردن خط فرمان سیستم (CMD)</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              خط فرمان پنجره‌ای سیاه رنگ است که دستورات متنی شما را دریافت و اجرا می‌کند:
+              <br>
+              <strong>در ویندوز:</strong> کلیدهای <kbd class="bg-slate-800 text-slate-100 px-1 py-0.5 rounded text-xs code-font">Windows + R</kbd> روی کیبورد را فشار دهید، کلمه <code class="code-font text-white bg-slate-950 px-1.5 py-0.5 rounded">cmd</code> را تایپ کرده و کلید Enter را بزنید.
+              <br>
+              <strong>در مک / لینوکس:</strong> برنامه <strong class="text-white">Terminal</strong> را در برنامه‌های خود جستجو و باز کنید.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="border-l-4 border-teal-500 pr-4">
+            <span class="bg-teal-500/10 text-teal-400 font-bold px-2.5 py-1 rounded text-xs">گام سوم</span>
+            <h3 class="text-lg font-bold text-white mt-2 mb-1">ورود به پوشه اسکریپت‌ها</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-2">
+              شما باید مسیر پوشه‌ای که کدهای پروژه در آن دانلود شده‌اند را به خط فرمان معرفی کنید.
+              <br>
+              پوشه <code class="code-font text-white bg-slate-950 px-1 py-0.5 rounded">scripts</code> را که در پروژه دارید باز کنید، روی نوار آدرس بالای پنجره پوشه کلیک کنید و آدرس متنی آن را کپی کنید.
+              سپس در خط فرمان ابتدا کلمه <code class="code-font text-white bg-slate-950 px-1 py-0.5 rounded">cd</code> را تایپ کرده، یک فاصله بگذارید، مسیر کپی شده را پیست کنید و Enter بزنید:
+            </p>
+            <pre class="bg-slate-950 text-slate-300 p-4 rounded-xl code-font text-xs border border-slate-800 text-left" dir="ltr">cd C:\Users\shahm\OneDrive\Desktop\schleiss-1997-pressure-tunnels\scripts</pre>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="border-l-4 border-emerald-500 pr-4">
+            <span class="bg-emerald-500/10 text-emerald-400 font-bold px-2.5 py-1 rounded text-xs">گام چهارم</span>
+            <h3 class="text-lg font-bold text-white mt-2 mb-1">نصب ابزارهای ریاضی و گزارش‌نویسی (فقط یک بار)</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-2">
+              کدهای پایتون برای رسم نمودار و ساخت خودکار فایل اکسل فرمت‌یافته، به سه ابزار کمکی استاندارد نیاز دارند. دستور زیر را دقیقاً در خط فرمان کپی کرده و Enter بزنید تا دانلود و نصب شوند (کمتر از ۱ دقیقه زمان می‌برد):
+            </p>
+            <div class="relative group">
+              <pre id="pip-cmd" class="bg-slate-950 text-emerald-400 p-4 rounded-xl code-font text-xs border border-slate-800 text-left" dir="ltr">pip install numpy openpyxl matplotlib</pre>
+              <button onclick="navigator.clipboard.writeText('pip install numpy openpyxl matplotlib'); alert('کپی شد!');" class="absolute top-2 right-2 bg-slate-800 hover:bg-slate-700 text-white text-xs px-2.5 py-1 rounded-lg border border-slate-700 transition">کپی</button>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="border-l-4 border-purple-500 pr-4">
+            <span class="bg-purple-500/10 text-purple-400 font-bold px-2.5 py-1 rounded text-xs">گام پنجم</span>
+            <h3 class="text-lg font-bold text-white mt-2 mb-1">اجرا و گرفتن خروجی‌های شگفت‌انگیز اکسل و نمودار!</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-4">
+              حالا همه‌چیز آماده است! ما دو موتور پیشرفته و اصلاح‌شده را برای شما آماده کرده‌ایم که بدون نیاز به هیچ تنظیمات خاصی، خروجی‌ها را مستقیماً در همان فولدری که هستید ذخیره می‌کنند:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              <!-- Run Script 1 -->
+              <div class="bg-slate-950/80 p-5 rounded-xl border border-slate-800 relative flex flex-col justify-between">
+                <div>
+                  <span class="bg-blue-500/10 text-blue-400 font-bold px-2 py-0.5 rounded text-[10px] uppercase">ابزار اول · شبیه‌ساز و نشت‌سنج</span>
+                  <h4 class="font-bold text-white mt-2 mb-1 text-sm">اجرای شبیه‌ساز و ساخت فایل اکسل حساسیت نشت</h4>
+                  <p class="text-slate-400 text-xs leading-relaxed mb-4">
+                    این دستور کل الگوریتم ۸ گام هیدرومکانیکی اشلایس را برای فشارهای ۰ تا ۵۰ بار حل کرده و فایل اکسل محاسباتی شرطی <strong class="text-white">Schleiss_Pressure_Tunnel_Design.xlsx</strong> و نمودارهای <strong class="text-white">Lining_Design_Chart.png</strong> را مستقیماً در پوشه شما می‌سازد.
+                  </p>
                 </div>
-
-                <!-- Card 2: Theory & Key Mechanics -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
-                    <h3 class="text-lg font-black text-slate-900 flex items-center pb-3 border-b border-slate-100">
-                        <i class="fa-solid fa-graduation-cap text-blue-600 ml-2"></i> مبانی تئوری و مدل سه ناحیه‌ای اشلایس
-                    </h3>
-                    
-                    <p class="text-sm text-slate-600 leading-relaxed">
-                        بر اساس مقاله کلاسیک <strong>Schleiss (1997)</strong> از دانشگاه <strong>EPFL سوئیس</strong>، برای تحلیل دقیق هیدرومکانیکی تونل‌های انتقال آب تحت فشار، اندرکنش رفتاری پوشش و سنگ پیرامون به سه ناحیه مجزا تقسیم می‌شود:
-                    </p>
-
-                    <div class="space-y-3">
-                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-150 flex items-start space-x-3 space-x-reverse">
-                            <span class="bg-blue-100 text-blue-700 w-6 h-6 rounded-lg text-xs font-black flex items-center justify-center shrink-0 mt-0.5">۱</span>
-                            <p class="text-xs text-slate-700 leading-relaxed"><strong class="text-slate-900">پوشش بتنی ترک‌خورده:</strong> جایی که تحت کشش آب داخلی، درزهای مویی تشکیل شده و نشت آب از میان ترک‌ها جریان می‌یابد.</p>
-                        </div>
-                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-150 flex items-start space-x-3 space-x-reverse">
-                            <span class="bg-blue-100 text-blue-700 w-6 h-6 rounded-lg text-xs font-black flex items-center justify-center shrink-0 mt-0.5">۲</span>
-                            <p class="text-xs text-slate-700 leading-relaxed"><strong class="text-slate-900">سنگ تحت تأثیر نشت آب:</strong> توده سنگی که در اثر عبور آب نشتی تحت فشار هیدرواستاتیکی جریان نفوذ قرار می‌گیرد.</p>
-                        </div>
-                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-150 flex items-start space-x-3 space-x-reverse">
-                            <span class="bg-blue-100 text-blue-700 w-6 h-6 rounded-lg text-xs font-black flex items-center justify-center shrink-0 mt-0.5">۳</span>
-                            <p class="text-xs text-slate-700 leading-relaxed"><strong class="text-slate-900">سنگ بکر دست‌نخورده:</strong> سنگ دوردستی که هیدرولیک جریان تأثیری بر رفتار مکانیکی آن ندارد.</p>
-                        </div>
-                    </div>
-
-                    <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 leading-relaxed font-bold">
-                        <i class="fa-solid fa-lightbulb text-amber-600 ml-1"></i> <strong>درس طلایی طراحی:</strong> کاهش گام میلگردها (فاصله نزدیک‌تر) در یک سطح مقطع ثابت فولاد، به صورت خطی عرض ترک‌ها را بسیار مؤثرتر از افزایش قطر میلگرد مهار می‌کند و نشت هیدرولیکی را به حداقل می‌رساند.
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <img src="assets/stress_distribution_between_cracks.png" alt="Stress Distribution" class="rounded-xl border border-slate-200 shadow-sm max-h-40 object-cover">
-                        <img src="assets/crack_width_vs_pressure.png" alt="Crack Width Plot" class="rounded-xl border border-slate-200 shadow-sm max-h-40 object-cover">
-                    </div>
+                <div class="relative mt-2">
+                  <pre class="bg-slate-900 text-blue-300 p-3 rounded-lg code-font text-[11px] text-left" dir="ltr">python pressure_tunnel_calc.py</pre>
+                  <button onclick="navigator.clipboard.writeText('python pressure_tunnel_calc.py'); alert('کپی شد!');" class="absolute top-1.5 right-1.5 bg-slate-800 hover:bg-slate-700 text-white text-[10px] px-2 py-0.5 rounded border border-slate-700 transition">کپی</button>
                 </div>
+              </div>
+
+              <!-- Run Script 2 -->
+              <div class="bg-slate-950/80 p-5 rounded-xl border border-slate-800 relative flex flex-col justify-between">
+                <div>
+                  <span class="bg-amber-500/10 text-amber-400 font-bold px-2 py-0.5 rounded text-[10px] uppercase">ابزار دوم · بهینه‌ساز هوشمند آهن‌آلات</span>
+                  <h4 class="font-bold text-white mt-2 mb-1 text-sm">اجرای الگوریتم هوشمند بهینه‌ساز آرماتورها</h4>
+                  <p class="text-slate-400 text-xs leading-relaxed mb-4">
+                    این دستور هزاران سناریوی ممکن قطر و فاصله میلگرد را شبیه‌سازی کرده و اقتصادی‌ترین آرایش میلگردها را به صورت فایل اکسل بهینه‌سازی <strong class="text-white">Schleiss_Pressure_Tunnel_Optimization_Report.xlsx</strong> و نمودار مرز پارتو <strong class="text-white">Schleiss_Tunnel_Optimization_Chart.png</strong> ذخیره می‌کند.
+                  </p>
+                </div>
+                <div class="relative mt-2">
+                  <pre class="bg-slate-900 text-amber-300 p-3 rounded-lg code-font text-[11px] text-left" dir="ltr">python pressure_tunnel_optimizer.py</pre>
+                  <button onclick="navigator.clipboard.writeText('python pressure_tunnel_optimizer.py'); alert('کپی شد!');" class="absolute top-1.5 right-1.5 bg-slate-800 hover:bg-slate-700 text-white text-[10px] px-2 py-0.5 rounded border border-slate-700 transition">کپی</button>
+                </div>
+              </div>
 
             </div>
 
-            <!-- Right Side: Zero-to-Hero Python Guide -->
-            <div class="lg:col-span-5">
-                <div class="bg-slate-900 text-slate-100 rounded-3xl p-6 shadow-xl space-y-6 relative border border-slate-800">
-                    <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-                        <h3 class="text-base font-black flex items-center text-emerald-400">
-                            <i class="fa-brands fa-python text-lg ml-2"></i> آموزش پایتون برای مبتدیان واقعی
-                        </h3>
-                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full text-[10px] font-bold">بدون پیش‌نیاز</span>
-                    </div>
-
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        اگر تا به حال کلمه <strong>پایتون (Python)</strong> را هم نشنیده‌اید، اصلاً نگران نباشید! پایتون مثل یک ماشین‌حساب مهندسی غول‌پیکر است که با اجرای چند دستور ساده، محاسبات شبیه‌سازی عددی و خروجی اکسل پروژه‌تان را تولید می‌کند.
-                    </p>
-
-                    <!-- Step 1 -->
-                    <div class="space-y-2">
-                        <div class="flex items-center space-x-2 space-x-reverse">
-                            <span class="bg-slate-800 text-emerald-400 w-5 h-5 rounded-full text-[10px] font-black flex items-center justify-center">۱</span>
-                            <h4 class="text-xs font-black text-white">نصب پایتون روی سیستم</h4>
-                        </div>
-                        <p class="text-[11px] text-slate-400 leading-relaxed pr-7">
-                            ۱. فایل نصب را از سایت رسمی <a href="https://www.python.org/downloads/" target="_blank" class="text-emerald-400 hover:underline">python.org</a> دانلود و اجرا کنید.<br>
-                            <span class="text-amber-400 font-bold">⚠️ بسیار مهم:</span> در اولین پنجره نصب، حتماً تیک گزینه <strong>Add Python to PATH</strong> در پایین صفحه را بزنید، سپس روی Install کلیک کنید.
-                        </p>
-                    </div>
-
-                    <!-- Step 2 -->
-                    <div class="space-y-2">
-                        <div class="flex items-center space-x-2 space-x-reverse">
-                            <span class="bg-slate-800 text-emerald-400 w-5 h-5 rounded-full text-[10px] font-black flex items-center justify-center">۲</span>
-                            <h4 class="text-xs font-black text-white">نصب پیش‌نیازهای محاسباتی</h4>
-                        </div>
-                        <p class="text-[11px] text-slate-400 leading-relaxed pr-7">
-                            برنامه <strong>CMD</strong> (ویندوز) یا <strong>Terminal</strong> (مک) را باز کنید، کادر زیر را عیناً کپی کرده، در آنجا پیست کنید و کلید <strong>Enter</strong> را فشار دهید:
-                        </p>
-                        <div class="bg-black/40 border border-slate-800 rounded-lg p-2.5 mx-7 font-mono text-[10px] text-slate-300 select-all flex justify-between items-center">
-                            <code>pip install numpy openpyxl matplotlib</code>
-                            <i class="fa-regular fa-copy text-slate-500 hover:text-emerald-400 cursor-pointer"></i>
-                        </div>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="space-y-3">
-                        <div class="flex items-center space-x-2 space-x-reverse">
-                            <span class="bg-slate-800 text-emerald-400 w-5 h-5 rounded-full text-[10px] font-black flex items-center justify-center">۳</span>
-                            <h4 class="text-xs font-black text-white">اجرای فایل‌های محاسباتی و گرفتن نتایج</h4>
-                        </div>
-                        
-                        <!-- Mini Card A -->
-                        <div class="bg-slate-800/50 border border-slate-800 p-3 rounded-xl space-y-2 mr-6">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-white"><i class="fa-solid fa-file-excel text-emerald-500 ml-1"></i> محاسبات گام‌به‌گام و نشت</span>
-                                <span class="text-[9px] bg-slate-700 px-1.5 py-0.5 rounded text-slate-400 font-mono">Run 1</span>
-                            </div>
-                            <p class="text-[10px] text-slate-400 leading-relaxed">
-                                برای محاسبه توزیع تنش، دبی نشت، عرض ترک‌ها و خروجی مستقیم به فایل اکسل زیبا و نمودارهای پروژه، دستور زیر را اجرا کنید:
-                            </p>
-                            <div class="bg-black/30 p-2 rounded text-[10px] font-mono text-emerald-300">
-                                python scripts/pressure_tunnel_calc.py
-                            </div>
-                        </div>
-
-                        <!-- Mini Card B -->
-                        <div class="bg-slate-800/50 border border-slate-800 p-3 rounded-xl space-y-2 mr-6">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-white"><i class="fa-solid fa-coins text-amber-500 ml-1"></i> الگوریتم بهینه‌سازی آرماتوربندی</span>
-                                <span class="text-[9px] bg-slate-700 px-1.5 py-0.5 rounded text-slate-400 font-mono">Run 2</span>
-                            </div>
-                            <p class="text-[10px] text-slate-400 leading-relaxed">
-                                برای پیدا کردن اقتصادی‌ترین چیدمان میلگردها (کمترین وزن مصرفی) که تمام ضوابط فنی عرض ترک و تنش اشلایس را ارضا کند، دستور زیر را اجرا کنید:
-                            </p>
-                            <div class="bg-black/30 p-2 rounded text-[10px] font-mono text-emerald-300">
-                                python scripts/pressure_tunnel_optimizer.py
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Step 4 -->
-                    <div class="space-y-2">
-                        <div class="flex items-center space-x-2 space-x-reverse">
-                            <span class="bg-slate-800 text-emerald-400 w-5 h-5 rounded-full text-[10px] font-black flex items-center justify-center">۴</span>
-                            <h4 class="text-xs font-black text-white">تبریک! خروجی‌ها آماده‌اند</h4>
-                        </div>
-                        <p class="text-[11px] text-slate-400 leading-relaxed pr-7">
-                            کدها به طور خودکار فایل‌های محاسباتی زیر را در همان پوشه شما تولید می‌کنند:<br>
-                            📂 <strong class="text-white">فایل‌های اکسل گزارش طراحی</strong> (با تم رنگی زیبا و هشدارهای اتوماتیک)<br>
-                            📊 <strong class="text-white">نمودارهای علمی رزولوشن بالا</strong> (نمودارهای پارتو و روندها)
-                        </p>
-                    </div>
-
-                </div>
+            <!-- Visual feedback -->
+            <div class="bg-[#1e2535] border border-blue-500/20 rounded-xl p-4 mt-6 flex items-start gap-3">
+              <span class="text-blue-400 text-lg">💡</span>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                <strong>چرا قبلاً برنامه خطا می‌داد؟</strong> کدهای اولیه شامل آدرس‌های سیستمی ابری (مانند <code class="code-font text-[10px] bg-slate-950 px-1 py-0.5 rounded text-rose-400">/workspace/scratch/</code>) بودند که روی سیستم شخصی شما وجود نداشت. در این نسخه اصلاح شده، برنامه‌ها به طور هوشمند سیستم شما را شناسایی می‌کنند و خروجی‌ها را به صورت کاملاً مستقل و در همان فولدری که کدهای پایتون را اجرا کرده‌اید تولید می‌کنند.
+              </p>
             </div>
 
-        </div>
-    </main>
+          </div>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800 font-fa">
-        <p>دفتر محاسبات سازه | پایگاه علمی و محاسباتی طراحی سازه‌های هیدرومکانیکی</p>
-        <p class="font-mono mt-2 text-slate-600">Developed by Mostafa Shahmoradi &copy; 2026 | structural-sheets</p>
-    </footer>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="bg-slate-950 text-slate-500 py-6 text-center text-xs mt-12 border-t border-slate-900">
+    <p>دفتر محاسبات سازه | راهنمای پکیج هیدرومکانیکی SCH-1997</p>
+    <p class="mt-1">Developed by Mostafa Shahmoradi &copy; 2026 | structural-sheets</p>
+  </footer>
 
 </body>
 </html>
-
-```
