@@ -1,13 +1,9 @@
-# Developed Pressure Tunnel Design Engine (v2)
-# Save this file as `pressure_tunnel_calc_v2.py` inside your scripts folder.
-# This version includes the full mechanical-hydraulic iterative solver, 
-# dynamic cracking series tracking, auto-plotting, and conditional Excel export.
-
 import numpy as np
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 import matplotlib.pyplot as plt
+import os
 
 class DevelopedPressureTunnelDesign:
     def __init__(self, r_i=1.8, r_s=1.9, r_o=2.1, E_c=20.0, E_s=200.0, E_r=4.0, k_r=1e-6, beta_z=1.0):
@@ -191,11 +187,11 @@ class DevelopedPressureTunnelDesign:
         ws["A1"].alignment = align_left
         ws.row_dimensions[1].height = 30
         
-        metadata = [
-            ("Lining Inner Radius (ri):", f"{self.r_i} m", "Reinforcement Spacing:", f"{spacing_cm} cm"),
-            ("Lining Outer Radius (ro):", f"{self.r_o} m", "Bar Diameter (phi):", f"{bar_diameter_mm} mm"),
-            ("Concrete Tensile Strength:", f"{self.beta_z} MPa", "Rock Mass Modulus (Er):", f"{self.E_r/1000.0} GPa"),
-            ("Rock Mass Permeability (kr):", f"{self.k_r} m/s", "Steel Elastic Modulus:", f"{self.E_s/1000.0} GPa")
+        metadata = [\
+            ("Lining Inner Radius (ri):", f"{self.r_i} m", "Reinforcement Spacing:", f"{spacing_cm} cm"),\
+            ("Lining Outer Radius (ro):", f"{self.r_o} m", "Bar Diameter (phi):", f"{bar_diameter_mm} mm"),\
+            ("Concrete Tensile Strength:", f"{self.beta_z} MPa", "Rock Mass Modulus (Er):", f"{self.E_r/1000.0} GPa"),\
+            ("Rock Mass Permeability (kr):", f"{self.k_r} m/s", "Steel Elastic Modulus:", f"{self.E_s/1000.0} GPa")\
         ]
         
         for r_idx, row_data in enumerate(metadata, start=3):
@@ -211,14 +207,14 @@ class DevelopedPressureTunnelDesign:
                 ws.cell(row=r_idx, column=c).border = Border(bottom=Side(style="thin", color="E5E7EB"))
 
         # 2. Table Headers
-        headers = [
-            "Internal Pressure\npi (bar)",
-            "External Pressure\npa (bar)",
-            "Lining State\n(Cracked/Uncracked)",
-            "Reinforcement Stress\nsigma_s (MPa)",
-            "Average Crack Width\n2a (mm)",
-            "Seepage Loss Rate\nq (L/s/m)",
-            "Cracks Count\nn"
+        headers = [\
+            "Internal Pressure\npi (bar)",\
+            "External Pressure\npa (bar)",\
+            "Lining State\n(Cracked/Uncracked)",\
+            "Reinforcement Stress\nsigma_s (MPa)",\
+            "Average Crack Width\n2a (mm)",\
+            "Seepage Loss Rate\nq (L/s/m)",\
+            "Cracks Count\nn"\
         ]
         
         start_row = 9
@@ -284,7 +280,64 @@ class DevelopedPressureTunnelDesign:
             
         wb.save(file_path)
 
+    def generate_sensitivity_plots(self, image_path, spacing_cm, bar_diameter_mm):
+        """
+        Generates and saves sensitivity plots for crack width and steel stress.
+        """
+        pressures = list(range(0, 51, 1))
+        crack_widths = []
+        steel_stresses = []
+        
+        for p in pressures:
+            res = self.solve_coupled_state(p, spacing_cm, bar_diameter_mm)
+            crack_widths.append(res["crack_width_mm"])
+            steel_stresses.append(res["steel_stress_mpa"])
+            
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+        plt.style.use('seaborn-v0_8-whitegrid')
+        
+        # Plot 1: Crack Width
+        ax1.plot(pressures, crack_widths, color='#2563EB', linewidth=2.5, label=f'D{bar_diameter_mm} @ s{spacing_cm}cm')
+        ax1.axhline(y=0.3, color='#EF4444', linestyle='--', linewidth=1.5, label='Allowable Limit (0.3 mm)')
+        ax1.set_title("Average Crack Width vs Internal Pressure", fontsize=11, fontweight='bold', color='#1E293B')
+        ax1.set_xlabel("Internal Water Pressure (bar)", fontsize=10)
+        ax1.set_ylabel("Crack Width (mm)", fontsize=10)
+        ax1.set_xlim(0, 50)
+        ax1.set_ylim(0, 0.4)
+        ax1.legend(loc='upper left', frameon=True)
+        ax1.grid(True, linestyle='--', alpha=0.5)
+        
+        # Plot 2: Steel Stress
+        ax2.plot(pressures, steel_stresses, color='#1B365D', linewidth=2.5, label=f'D{bar_diameter_mm} @ s{spacing_cm}cm')
+        ax2.axhline(y=240.0, color='#EF4444', linestyle='--', linewidth=1.5, label='Allowable Yield (240 MPa)')
+        ax2.set_title("Steel Hoop Stress vs Internal Pressure", fontsize=11, fontweight='bold', color='#1E293B')
+        ax2.set_xlabel("Internal Water Pressure (bar)", fontsize=10)
+        ax2.set_ylabel("Steel Stress (MPa)", fontsize=10)
+        ax2.set_xlim(0, 50)
+        ax2.set_ylim(0, 300)
+        ax2.legend(loc='upper left', frameon=True)
+        ax2.grid(True, linestyle='--', alpha=0.5)
+        
+        plt.tight_layout()
+        plt.savefig(f"{image_path}.png", dpi=150)
+        plt.close()
+
 if __name__ == "__main__":
+    # Check if we are running in the cloud sandbox environment or a local user PC
+    # This prevents FileNotFoundError on Windows computers that don't have /workspace/scratch
+    if os.path.exists("/workspace/scratch"):
+        excel_out = "/workspace/scratch/Schleiss_Pressure_Tunnel_Design.xlsx"
+        plot_out = "/workspace/scratch/Lining_Design_Chart"
+    else:
+        excel_out = "Schleiss_Pressure_Tunnel_Design.xlsx"
+        plot_out = "Lining_Design_Chart"
+
     engine = DevelopedPressureTunnelDesign()
-    engine.export_sensitivity_to_excel("/workspace/scratch/Schleiss_Pressure_Tunnel_Design.xlsx", 16, 18)
-    print("Export Complete!")
+    
+    print("Running Schleiss (1997) Mechanical-Hydraulic Engine...")
+    engine.export_sensitivity_to_excel(excel_out, 16, 18)
+    print(f"Excel sensitivity report generated: {excel_out}")
+    
+    engine.generate_sensitivity_plots(plot_out, 16, 18)
+    print(f"Design sensitivity charts generated: {plot_out}.png")
+    print("Execution Completed Successfully!")
